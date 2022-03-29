@@ -1,37 +1,56 @@
-const {Builder, By, Key} = require ("selenium-webdriver");
-const assert = require("assert"); 
+const {Builder, By, Key} = require ("selenium-webdriver"); 
 var should = require("chai").should();
+var expect = require('chai').expect;
+var describe = require ('mocha').describe;
 
 
-async function example() {
 
-await driver.get("https://lambdatest.github.io/sample-todo-app/")
+//describe block 
 
-// sampletodotext, id used to select 
-await driver.findElement(By.id("sampletodotext")).sendKeys("Learn Selenium", Key.RETURN);
+describe("add ToDo tests", function() {
 
-// assert
-let todoText = await driver.findElement(By.xpath("//li[last()]")).getText().then(function(value){
-    return value
+    //it block
+    it("successfully add ToDo to application", async function() {
+
+
+        let driver = await new Builder().forBrowser("firefox").build();
+
+
+
+        await driver.get("https://lambdatest.github.io/sample-todo-app/")
+
+        // sampletodotext, id used to select 
+        await driver.findElement(By.id("sampletodotext")).sendKeys("Learn Selenium", Key.RETURN);
+
+        // assert
+        let todoText = await driver.findElement(By.xpath("//li[last()]")).getText().then(function(value){
+            return value
+        });
+
+
+        //assert using node assertions
+        // assert.strictEqual(todoText, "Learn Selenium");
+
+        // strictEqual: checks that two strings match
+        // 1. what actual val is
+        // 2. what second val is
+
+
+        //assert using chai should 
+            // chair\ assertions are more popular because they are
+            // more human readable
+
+        todoText.should.equal("Learn Selenium");
+
+
+        // close the browser
+        await driver.quit();
+
+    });
+
 });
 
 
-//assert using node assertions
-// assert.strictEqual(todoText, "Learn Selenium");
-
-// strictEqual: checks that two strings match
-// 1. what actual val is
-// 2. what second val is
 
 
-//assert using chai should 
-    // chair\ assertions are more popular because they are
-    // more human readable
 
-todoText.should.equal("Learn Selenium");
-
-
-// close the browser
-await driver.quit();
-
-}
