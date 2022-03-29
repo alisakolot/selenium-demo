@@ -5,16 +5,8 @@ var should = require("chai").should();
 
 async function example() {
 
-// launch the browser
-
-let driver = await new Builder().forBrowser("firefox").build();
-
-
-// navigate to our app
 await driver.get("https://lambdatest.github.io/sample-todo-app/")
 
-
-// add a TODO
 // sampletodotext, id used to select 
 await driver.findElement(By.id("sampletodotext")).sendKeys("Learn Selenium", Key.RETURN);
 
@@ -40,8 +32,6 @@ todoText.should.equal("Learn Selenium");
 
 
 // close the browser
-await driver.quit( );
+await driver.quit();
 
 }
-
-example();
